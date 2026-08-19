@@ -150,6 +150,18 @@ section{position:relative;padding:130px 0}
 }
 @media(min-width:861px){.mobile-panel{display:none}}
 
+/* ============ LANGUAGE TOGGLE ============ */
+.lang-toggle{
+  font-family:var(--font-mono);font-size:12.5px;color:var(--white);
+  border:1px solid var(--line);padding:9px 16px;border-radius:100px;
+  transition:border-color .25s,box-shadow .25s,transform .25s;
+  white-space:nowrap;
+}
+.lang-toggle:hover{border-color:var(--red);box-shadow:0 0 24px var(--red-dim);transform:translateY(-1px)}
+@media(max-width:860px){
+  .lang-toggle{display:inline-flex;margin-left:auto;margin-right:16px;padding:8px 13px}
+}
+
 /* ============ HERO ============ */
 .hero{
   min-height:100vh;display:flex;align-items:center;
@@ -430,6 +442,7 @@ footer .fs-links a:hover{color:var(--red)}
       <a href="#experience">Journey</a>
       <a href="#contact">Contact</a>
     </div>
+    <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">KOREAN</button>
     <a href="#contact" class="nav-cta">Let's talk →</a>
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -449,10 +462,10 @@ footer .fs-links a:hover{color:var(--red)}
 <section class="hero" id="home">
   <div class="container">
     <div class="hero-text">
-      <span class="greet" id="greet">안녕하세요, I'm</span>
-      <h1 id="heroName">푸스파 <span>바달</span></h1>
+      <span class="greet" id="greet">Hello, I'm</span>
+      <h1 id="heroName">Puspa <span>Badal</span></h1>
       <div class="type-role" id="typeRole"><span id="typeTarget"></span><span class="cursor-blink"></span></div>
-      <p class="hero-bio" id="heroBio">카브레 출신의 열정적인 컴퓨터공학 전공 학생으로, 디자인과 기술을 결합하는 것에 관심이 많습니다. 인터랙티브 웹 애플리케이션을 개발하고, 매력적인 브랜드 비주얼을 제작하며, 영상을 편집하는 등 아이디어를 사람들이 직접 경험할 수 있는 매력적인 디지털 경험으로 만들어갑니다. 현재 대한민국에서 컴퓨터공학을 공부하며 소프트웨어 개발, UI/UX 및 최신 기술 분야의 역량을 지속적으로 발전시키고 있습니다.
+      <p class="hero-bio" id="heroBio">An ambitious Computer Engineering student from Kavre, Nepal, passionate about combining design, technology, and artificial intelligence. I build interactive web applications, create compelling brand visuals, and edit videos—turning ideas into engaging digital experiences. Currently studying Computer Engineering in South Korea, I am also developing expertise in AI and emerging technologies.
 </p>
       <div class="hero-cta" id="heroCta">
         <a href="#projects" class="btn btn-primary">View my work →</a>
@@ -795,8 +808,13 @@ footer .fs-links a:hover{color:var(--red)}
     p.style.opacity=1; p.style.transform='scale(1) translateY(0)';
   }, 420);
 
-  /* ---------- typing effect ---------- */
-  const roles = ['Full Stack Developer','Web Designer','Graphic Designer','Video Editor'];
+  /* ---------- bilingual typing effect ---------- */
+  const roleSets = {
+    en: ['Full Stack Developer','Web Designer','Graphic Designer','Video Editor'],
+    ko: ['풀스택 개발자','웹 디자이너','그래픽 디자이너','영상 편집자']
+  };
+  let currentLang = 'en';
+  let roles = roleSets[currentLang];
   const target = document.getElementById('typeTarget');
   let ri=0, ci=0, deleting=false;
   function tick(){
@@ -848,6 +866,204 @@ footer .fs-links a:hover{color:var(--red)}
     form.reset();
     setTimeout(()=>success.classList.remove('show'), 4200);
   });
+
+  /* ---------- bilingual English / Korean translation ---------- */
+  const translations = {
+    'Puspa Badal — Full Stack Developer':'푸스파 바달 — 풀스택 개발자',
+    'PUSPA.BADAL':'푸스파 바달',
+    'Puspa Badal':'푸스파 바달',
+    'Home':'홈',
+    'About':'소개',
+    'Skills':'기술',
+    'Work':'작업',
+    'Journey':'여정',
+    'Contact':'연락처',
+    "Let's talk →":'문의하기 →',
+    'Hello, I\'m':'안녕하세요, 저는',
+    'An ambitious Computer Engineering student from Kavre, Nepal, passionate about combining design, technology, and artificial intelligence. I build interactive web applications, create compelling brand visuals, and edit videos—turning ideas into engaging digital experiences. Currently studying Computer Engineering in South Korea, I am also developing expertise in AI and emerging technologies.':'네팔 카브레 출신의 열정적인 컴퓨터공학 학생으로, 디자인·기술·인공지능을 결합하는 데 관심이 많습니다. 인터랙티브 웹 애플리케이션을 개발하고, 매력적인 브랜드 비주얼을 제작하며, 영상을 편집하여 아이디어를 사람들이 즐길 수 있는 디지털 경험으로 구현합니다. 현재 대한민국에서 컴퓨터공학을 전공하고 있으며, AI와 최신 기술 분야의 전문성도 함께 키우고 있습니다.',
+    'View my work →':'작업 보기 →',
+    'Get in touch':'연락하기',
+    'Projects shipped':'완성한 프로젝트',
+    'Languages & tools':'언어 및 도구',
+    'Service domains':'서비스 분야',
+    'Full Stack':'풀스택',
+    'Developer':'개발자',
+    'Problem':'문제',
+    'Solver':'해결사',
+    'Fast':'빠른',
+    'Learner':'학습자',
+    'Scroll':'스크롤',
+    'The person behind':'코드 뒤에 있는',
+    'the code':'사람',
+    "I'm Puspa — a developer, designer and editor from the hills of Kavre, Nepal. My work sits at the crossing point of creativity and technical precision: I write the code that makes an interface function, and I shape the visuals that make it feel considered.":'저는 네팔 카브레 출신의 개발자이자 디자이너, 에디터 푸스파입니다. 제 작업은 창의성과 기술적 정확성이 만나는 지점에 있습니다. 인터페이스를 작동하게 만드는 코드를 작성하고, 세심하게 완성된 느낌을 주는 비주얼을 만듭니다.',
+    'Across web design, graphic design and video editing, the throughline is the same — take a rough idea and give it a clean, confident shape. I\'m equally comfortable structuring a database as I am laying out a logo or cutting a reel, and I bring that range to every project I take on.':'웹 디자인, 그래픽 디자인, 영상 편집 전반에서 제가 추구하는 방향은 같습니다. 거친 아이디어를 깔끔하고 자신감 있는 결과물로 만드는 것입니다. 데이터베이스를 설계하는 일부터 로고를 구성하거나 릴스를 편집하는 일까지 모두 익숙하게 다루며, 이러한 폭넓은 역량을 모든 프로젝트에 활용합니다.',
+    'Currently focused on sharpening my full-stack craft and taking on projects that push past what I built last time.':'현재는 풀스택 개발 역량을 더욱 강화하고 있으며, 이전보다 더 발전된 결과물을 만들 수 있는 프로젝트에 집중하고 있습니다.',
+    'UI Design':'UI 디자인',
+    'Video Editing':'영상 편집',
+    'The person behind':'코드 뒤에 있는',
+    'Web Dev & Design':'웹 개발 & 디자인',
+    'Also does':'추가 작업',
+    'Graphic Design, Editing':'그래픽 디자인, 편집',
+    'Availability':'가능 여부',
+    'Open to projects':'프로젝트 환영',
+    'Selected Work':'주요 작업',
+    "Things I've":"제가",
+    'built & designed':'만들고 디자인한 것들',
+    'A mix of development and design work across web, brand and video — the three domains I operate in daily.':'웹, 브랜딩, 영상 분야에서 진행한 개발 및 디자인 작업을 모았습니다. 제가 매일 다루는 세 가지 핵심 분야입니다.',
+    'Responsive Business Site':'반응형 비즈니스 사이트',
+    'A clean, conversion-focused landing page built from scratch — semantic HTML, custom CSS layout and vanilla JS interactions, no framework bloat.':'처음부터 직접 만든 깔끔하고 전환에 초점을 맞춘 랜딩 페이지입니다. 시맨틱 HTML, 맞춤형 CSS 레이아웃, 바닐라 JS 인터랙션을 사용했으며 불필요한 프레임워크를 사용하지 않았습니다.',
+    'View project':'프로젝트 보기',
+    'PHP + MySQL Dashboard':'PHP + MySQL 대시보드',
+    'A lightweight admin dashboard with server-side rendering, form handling and a MySQL-backed data layer for real CRUD operations.':'서버 사이드 렌더링, 폼 처리, MySQL 기반 데이터 계층을 활용하여 실제 CRUD 작업을 수행하는 가벼운 관리자 대시보드입니다.',
+    'Brand Identity & Logo Set':'브랜드 아이덴티티 및 로고 세트',
+    "Logo concepts, colour system and a matching set of YouTube banners and thumbnails designed to keep a channel's branding consistent.":'채널의 브랜딩 일관성을 유지하도록 설계한 로고 콘셉트, 컬러 시스템, YouTube 배너 및 썸네일 세트입니다.',
+    'Branding':'브랜딩',
+    'Logo Design':'로고 디자인',
+    'Short-Form Video Edits':'숏폼 영상 편집',
+    'Reels and highlight edits cut in CapCut and VN — pacing, captions and colour grading tuned for retention on social platforms.':'CapCut과 VN으로 제작한 릴스 및 하이라이트 편집입니다. 소셜 플랫폼에서의 시청 유지율을 높이기 위해 템포, 자막, 색보정을 조정했습니다.',
+    'Motion':'모션',
+    'How I got':'제가 걸어온',
+    'here':'길',
+    'Foundations':'기초',
+    'Started with code':'코드로 시작',
+    'Picked up the fundamentals of programming and markup, building small static pages and console programs to learn how software actually thinks.':'프로그래밍과 마크업의 기초를 익히며 작은 정적 페이지와 콘솔 프로그램을 만들었고, 소프트웨어가 실제로 어떻게 동작하는지 배웠습니다.',
+    'Growth':'성장',
+    'Moved into full-stack development':'풀스택 개발로 확장',
+    'Started building dynamic, database-driven applications — connecting front-end interfaces to real back-end logic and data.':'동적이고 데이터베이스 기반의 애플리케이션을 만들기 시작했으며, 프론트엔드 인터페이스를 실제 백엔드 로직과 데이터에 연결했습니다.',
+    'Expansion':'확장',
+    'Added design & media to the toolkit':'디자인과 미디어를 기술에 추가',
+    'Branched into graphic design and video/photo editing — logos, YouTube banners, thumbnails and short-form edits — to be able to ship a project end to end.':'그래픽 디자인과 영상·사진 편집으로 영역을 넓혀 로고, YouTube 배너, 썸네일, 숏폼 영상을 제작하며 프로젝트를 처음부터 끝까지 완성할 수 있는 역량을 갖췄습니다.',
+    'Now':'현재',
+    'Full-stack developer & problem solver':'풀스택 개발자 & 문제 해결사',
+    'Kavre, Nepal — open to new work':'네팔 카브레 — 새로운 작업에 열려 있음',
+    'Taking on projects across web development, branding and content editing, with 20+ completed projects and counting.':'웹 개발, 브랜딩, 콘텐츠 편집 분야의 프로젝트를 진행하고 있으며, 현재까지 20개 이상의 프로젝트를 완료했습니다.',
+    'Background':'배경',
+    'Education &':'교육 및',
+    'achievements':'성과',
+    'Education':'교육',
+    'Field':'전공',
+    'Information Technology':'정보기술',
+    'Location':'위치',
+    'Nepal':'네팔',
+    'Focus':'집중 분야',
+    'Software Development':'소프트웨어 개발',
+    'Status':'상태',
+    'Continuous learner':'지속적인 학습자',
+    'Achievements':'성과',
+    'Projects':'프로젝트',
+    '20+ completed':'20개 이상 완료',
+    'Domains':'분야',
+    'Dev · Design · Editing':'개발 · 디자인 · 편집',
+    'Languages':'언어',
+    '8 tools & languages':'8개 도구 및 언어',
+    'Reputation':'강점',
+    'Fast learner, problem solver':'빠른 학습자, 문제 해결사',
+    "Let's build":'함께 만들어',
+    'something':'봅시다',
+    'Have a project, a role, or just a question? I read every message — reach out through the form or directly below.':'프로젝트나 업무 제안, 또는 궁금한 점이 있나요? 모든 메시지를 확인합니다. 아래 양식을 이용하거나 직접 연락해 주세요.',
+    'Your name':'이름',
+    'Your email':'이메일',
+    'Message':'메시지',
+    'Send message →':'메시지 보내기 →',
+    '✓ Message sent — thanks for reaching out!':'✓ 메시지가 전송되었습니다 — 연락해 주셔서 감사합니다!',
+    'Facebook':'페이스북',
+    'Website':'웹사이트',
+    'Open to new projects':'새로운 프로젝트 환영',
+    'Original site':'원본 사이트',
+    '© 2026 Puspa Badal. All rights reserved.':'© 2026 푸스파 바달. 모든 권리를 보유합니다.',
+    'Everyday Kit':'일상 도구',
+    'Tools':'도구',
+    'Editing':'편집',
+    'Interfaces':'인터페이스',
+    'Backend':'백엔드',
+    'Logic & Data':'로직 & 데이터',
+    'Core':'핵심',
+    'Programming':'프로그래밍',
+    'Design':'디자인',
+    'Visual Craft':'비주얼 제작',
+    'Media':'미디어',
+    'Photo Editing':'사진 편집',
+    'UI / Web Design':'UI / 웹 디자인',
+    'Logo & Branding':'로고 & 브랜딩',
+    'Thumbnails & Banners':'썸네일 & 배너',
+    'Video Editing':'영상 편집',
+    'CapCut / VN':'CapCut / VN',
+    'Git & Workflow':'Git & 워크플로우',
+    'Frontend':'프론트엔드',
+    'PHP':'PHP',
+    'Python':'Python',
+    'HTML & CSS':'HTML & CSS',
+    'C / C++':'C / C++',
+    'JavaScript':'JavaScript',
+    'MySQL':'MySQL',
+    'HTML':'HTML',
+    'CSS':'CSS',
+    'C':'C',
+    'C++':'C++',
+    'Photoshop':'Photoshop',
+    'CapCut':'CapCut',
+    'VN Editor':'VN 에디터',
+    'Web Design · Logo Design · Editing':'웹 디자인 · 로고 디자인 · 편집',
+    'JavaScript · PHP · MySQL · Python':'JavaScript · PHP · MySQL · Python',
+    'HTML · CSS · C · C++':'HTML · CSS · C · C++',
+    'Kavre, Nepal':'네팔 카브레'
+  };
+
+  const originalText = new Map();
+  document.querySelectorAll('body *').forEach(el=>{
+    if(el.closest('script,style')) return;
+    el.childNodes.forEach(node=>{
+      if(node.nodeType === Node.TEXT_NODE){
+        const raw = node.nodeValue;
+        const key = raw.trim();
+        if(key && translations[key] && !originalText.has(node)) originalText.set(node, raw);
+      }
+    });
+  });
+
+  function translateText(lang){
+    document.documentElement.lang = lang === 'ko' ? 'ko' : 'en';
+    document.title = lang === 'ko' ? translations['Puspa Badal — Full Stack Developer'] : 'Puspa Badal — Full Stack Developer';
+
+    originalText.forEach((raw,node)=>{
+      const key = raw.trim();
+      if(lang === 'ko' && translations[key]){
+        const leading = raw.match(/^\\s*/)?.[0] || '';
+        const trailing = raw.match(/\\s*$/)?.[0] || '';
+        node.nodeValue = leading + translations[key] + trailing;
+      }else if(lang === 'en'){
+        node.nodeValue = raw;
+      }
+    });
+
+    const name = document.getElementById('heroName');
+    if(name) name.innerHTML = lang === 'ko' ? '푸스파 <span>바달</span>' : 'Puspa <span>Badal</span>';
+
+    const brand = document.querySelector('.brand');
+    if(brand){
+      const textNodes = Array.from(brand.childNodes).filter(n=>n.nodeType===Node.TEXT_NODE);
+      const n = textNodes[textNodes.length-1];
+      if(n) n.nodeValue = lang === 'ko' ? ' 푸스파 바달' : ' PUSPA.BADAL';
+    }
+
+    const role = document.getElementById('typeTarget');
+    currentLang = lang;
+    roles = roleSets[currentLang];
+    ri = 0; ci = 0; deleting = false;
+    if(role) role.textContent = '';
+
+    const toggle = document.getElementById('langToggle');
+    if(toggle){
+      toggle.textContent = lang === 'en' ? 'KOREAN' : 'ENGLISH';
+      toggle.setAttribute('aria-label', lang === 'en' ? 'Switch to Korean' : 'Switch to English');
+    }
+  }
+
+  document.getElementById('langToggle').addEventListener('click', ()=>{
+    translateText(currentLang === 'en' ? 'ko' : 'en');
+  });
+
+  translateText('en');
 
   /* ---------- smooth anchor scroll offset handled by CSS scroll-behavior ---------- */
 })();
